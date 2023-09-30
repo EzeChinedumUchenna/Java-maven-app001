@@ -33,11 +33,12 @@ pipeline {
                 }
             }
         }
-        stage("deploying") {
+        stage("deploying to ACR") {
             steps {
-                withCredentials ([usernamePassword(credentialsId: 'server_cred', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    echo "deploying $USER $PASS" 
-                    //gv.deployApp()
+                script {
+                    echo "pushing to ACR"
+                    gv.
+                }
                 }
             }
         } 
