@@ -46,9 +46,8 @@ pipeline {
         }
         stage("deploying") {
             steps {
-                withCredentials ([usernamePassword(credentials: 'server-credentials', usernameVariable: USER, passwordVariable: PASS)]) // To sue this CMD you must have "CREDENTIALS BINDING PLUGIN" and the CREDENTIALS PLUGIN" installed in the JEnkins
-                script {
-                    echo "deploying ${USER} ${PASS} ${params.VERSION}" 
+                withCredentials ([usernamePassword(credentialsId: 'server_cred', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    echo "deploying $USER $PASS" 
                     //gv.deployApp()
                 }
             }
