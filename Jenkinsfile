@@ -18,12 +18,6 @@ pipeline {
             }
         }
         stage("building jar") {
-            when {
-                expression {
-                    params.ExecuteTest = true
-                    BRANCH_NAME == 'main' || BRANCH_NAME == 'dev' //this stage will run only when the git branch name is main OR a master build else skip
-                }
-            }
             steps {
                 script {
                     echo "building jar"
