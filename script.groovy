@@ -8,7 +8,6 @@ def buildImage() {
     sh 'docker build -t nedumacr.azurecr.io/demo-app:jma-$(BUILD_NUMBER) .'
 
     }
-} 
 
 def deployImage() {
     echo "deploying image to ACR ...."
