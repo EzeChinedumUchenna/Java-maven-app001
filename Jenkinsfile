@@ -8,13 +8,13 @@ pipeline {
         booleanParam (name: 'ExecuteTest', defaultValue: 'true', description: 'choose either true or False')
     }
     tools {
-        maven 'maven-3.9' # Makes tools (For Example maven) command available in all the Jenkins  stages
+        maven 'maven-3.9' //Makes tools (For Example maven) command available in all the Jenkins  stages
     }
     stages {
         stage("init") {
             when {
                 expression {
-                    BRANCH_NAME == 'main' && CODE_CHANGES == true #this stage will run only when the git branch name AND there is Code Change But u need to define CODE_CHANGES bcos it is not part of the defaults env variable
+                    BRANCH_NAME == 'main' && CODE_CHANGES == true //this stage will run only when the git branch name AND there is Code Change But u need to define CODE_CHANGES bcos it is not part of the defaults env variable
                 }
             }
             steps {
@@ -23,11 +23,11 @@ pipeline {
                 }
             }
         }
-        stage("build jar") {
+        stage("building jar") {
             when {
                 expression {
                     params.ExecuteTest = true
-                    BRANCH_NAME == 'main' || BRANCH_NAME == 'dev' #this stage will run only when the git branch name is main OR a master build else skip
+                    BRANCH_NAME == 'main' || BRANCH_NAME == 'dev' //this stage will run only when the git branch name is main OR a master build else skip
                 }
             }
             steps {
@@ -37,7 +37,7 @@ pipeline {
                 }
             }
         }
-        stage("build image") {
+        stage("building image") {
             steps {
                 script {
                     echo "building image"
@@ -45,7 +45,7 @@ pipeline {
                 }
             }
         }
-        stage("deploy") {
+        stage("deploying") {
             steps {
                 withCredentials ([usernamePassword(credentials: 'server-credentials', usernameVariable: USER, passwordVariable: PASS)]) // To sue this CMD you must have "CREDENTIALS BINDING PLUGIN" and the CREDENTIALS PLUGIN" installed in the JEnkins
                 script {
