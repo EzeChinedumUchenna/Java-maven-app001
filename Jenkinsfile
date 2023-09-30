@@ -1,15 +1,14 @@
 def gv
 pipeline {
     agent any
+     tools {
+        maven 'maven-3.9' 
+    }
     parameters {
         string (name: 'VERSION_NUMBER', defaultValue: '', description: 'Version for the deployment')
         choice (name: 'VERSION', choices: [10,20,30], description: 'Version for the deployment')
         booleanParam (name: 'ExecuteTest', defaultValue: 'true', description: 'choose either true or False')
-    }
-    tools {
-        maven 'maven-3.9' //Makes tools (For Example maven) command available in all the Jenkins  stages.
-    }
-    
+    }    
     stages {
         stage("initializing.....") {
             steps {
