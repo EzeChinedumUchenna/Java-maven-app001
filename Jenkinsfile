@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     echo "pushing to ACR"
-                    gv.
+                    gv.deployImage
                 }
                 }
             }
