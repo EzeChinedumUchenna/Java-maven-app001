@@ -1,5 +1,4 @@
 def gv
-
 pipeline {
     agent any
     parameters {
@@ -11,10 +10,10 @@ pipeline {
         maven 'maven-3.9' //Makes tools (For Example maven) command available in all the Jenkins  stages
     }
     stages {
-        stage("init") {
+        stage("initializing.....") {
             when {
                 expression {
-                    BRANCH_NAME == 'main' && CODE_CHANGES == true //this stage will run only when the git branch name AND there is Code Change But u need to define CODE_CHANGES bcos it is not part of the defaults env variable
+                    BRANCH_NAME == 'main' //this stage will run only when the git branch name AND there is Code Change But u need to define CODE_CHANGES bcos it is not part of the defaults env variable
                 }
             }
             steps {
