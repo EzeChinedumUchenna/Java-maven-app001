@@ -6,9 +6,10 @@ pipeline {
         choice (name: 'VERSION', choices: [10,20,30], description: 'Version for the deployment')
         booleanParam (name: 'ExecuteTest', defaultValue: 'true', description: 'choose either true or False')
     }
-    /*tools {
-        maven 'maven-3.8' //Makes tools (For Example maven) command available in all the Jenkins  stages.
-    }*/
+    tools {
+        maven 'maven-3.9' //Makes tools (For Example maven) command available in all the Jenkins  stages.
+    }
+    
     stages {
         stage("initializing.....") {
             steps {
@@ -21,7 +22,7 @@ pipeline {
             steps {
                 script {
                     echo "building jar"
-                    //gv.buildJar()
+                    gv.buildJar()
                 }
             }
         }
@@ -29,7 +30,7 @@ pipeline {
             steps {
                 script {
                     echo "building image"
-                    //gv.buildImage()
+                    gv.buildImage()
                 }
             }
         }
