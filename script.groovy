@@ -14,10 +14,10 @@ def deployImage() {
     withCredentials([usernamePassword(credentialsId: 'azure_acr_cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh "echo $PASS | docker login -u $USER --password-stdin"
         sh 'docker push nedumacr.azurecr.io/demo-app:jma-2.0'
-        
+    }
+}
 def deployApp() {
     echo 'deploying the application...'
 } 
 
 return this
-    }
