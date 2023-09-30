@@ -6,9 +6,9 @@ pipeline {
         choice (name: 'VERSION', choices: [10,20,30], description: 'Version for the deployment')
         booleanParam (name: 'ExecuteTest', defaultValue: 'true', description: 'choose either true or False')
     }
-    tools {
+    /*tools {
         maven 'maven-3.8' //Makes tools (For Example maven) command available in all the Jenkins  stages.
-    }
+    }*/
     stages {
         stage("initializing.....") {
             when {
