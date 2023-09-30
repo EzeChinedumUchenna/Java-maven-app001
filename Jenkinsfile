@@ -4,7 +4,7 @@ pipeline {
     agent any
     parameters {
         string (name: 'VERSION_NUMBER', defaultValue: '', description: 'Version for the deployment')
-        choice (name: 'VERSION', defaultValue: '20', choice: [10,20,30], description: 'Version for the deployment')
+        choice (name: 'VERSION', choices: [10,20,30], description: 'Version for the deployment')
         booleanParam (name: 'ExecuteTest', defaultValue: 'true', description: 'choose either true or False')
     }
     tools {
