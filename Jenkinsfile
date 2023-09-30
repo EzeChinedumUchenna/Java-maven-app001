@@ -7,7 +7,7 @@ pipeline {
         booleanParam (name: 'ExecuteTest', defaultValue: 'true', description: 'choose either true or False')
     }
     tools {
-        maven 'maven-3.9' //Makes tools (For Example maven) command available in all the Jenkins  stages
+        maven 'maven-3.8' //Makes tools (For Example maven) command available in all the Jenkins  stages
     }
     stages {
         stage("initializing.....") {
