@@ -11,11 +11,6 @@ pipeline {
     }*/
     stages {
         stage("initializing.....") {
-            when {
-                expression {
-                    BRANCH_NAME == 'main' //this stage will run only when the git branch name AND there is Code Change But u need to define CODE_CHANGES bcos it is not part of the defaults env variable
-                }
-            }
             steps {
                 script {
                     gv = load "script.groovy"
