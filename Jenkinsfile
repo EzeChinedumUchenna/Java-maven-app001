@@ -34,9 +34,16 @@ pipeline {
             }
         }
         stage("deploying to ACR") {
+            input {
+                message "selete the environment"
+                ok "Done"
+                parameters {
+                    choice (name: 'ENV', choices: [dev, stage, prod], description: '')
+                }
+            }
             steps {
                 script {
-                    echo "pushing to ACR"
+                    echo "pushing to ACR in ${params.ENV}"
                     gv.deployImage()
                 
                 }
