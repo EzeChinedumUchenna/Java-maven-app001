@@ -38,7 +38,7 @@ pipeline {
                 message "selete the environment"
                 ok "Done"
                 parameters {
-                    choice (name: 'ENV', choices: [dev, stage, prod], description: '')
+                    choice (name: 'ENV', choices: ['dev', 'stage', 'prod'], description: '')
                 }
             }
             steps {
