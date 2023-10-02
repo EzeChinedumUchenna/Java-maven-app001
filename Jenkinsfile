@@ -43,7 +43,7 @@ pipeline {
             }
             steps {
                 script {
-                    echo "pushing to ACR in ${params.ENV}"
+                    echo "pushing to ACR in "
                     gv.deployImage()
                 
                 }
