@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-@Libra
+@Library('jenkins-shared-lib') //"NOTE: if there is nothing before pipeline use @Library('jenkins-shared-lib')_"
 
 def gv
 pipeline {
@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     echo "pushing to ACR in "
-                    gv.deployImage()
+                    deployImage()
                 
                 }
             }
