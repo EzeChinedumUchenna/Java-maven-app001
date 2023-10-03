@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     echo "pushing to ACR in "
-                    deployImage()
+                    deployImage 'nedumacr.azurecr.io/demo-app:jma-${BUILD_NUMBER}'
                 
                 }
             }
