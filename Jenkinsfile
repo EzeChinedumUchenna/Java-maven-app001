@@ -10,11 +10,11 @@ pipeline {
      tools {
         maven 'maven-3.9' 
     }
-    // parameters {
-    //     string (name: 'VERSION_NUMBER', defaultValue: '', description: 'Version for the deployment')
-    //     choice (name: 'VERSION', choices: [10,20,30], description: 'Version for the deployment')
-    //     booleanParam (name: 'ExecuteTest', defaultValue: 'true', description: 'choose either true or False')
-    // }    
+    parameters {
+        string (name: 'VERSION_NUMBER', defaultValue: '', description: 'Version for the deployment')
+        choice (name: 'VERSION', choices: [10,20,30], description: 'Version for the deployment')
+        booleanParam (name: 'ExecuteTest', defaultValue: 'true', description: 'choose either true or False')
+    }    
     stages {
         stage("initializing.....") {
             steps {
