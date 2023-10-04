@@ -5,6 +5,7 @@
 library identifier: 'jenkins-shared-lib@main', retriever: modernSCM([$class: 'GitSCMSource', remote: 'https://github.com/EzeChinedumUchenna/Jenkins_Shared_Lib.git', credentialId: 'My-Github-cred', branchName: env.BRANCH_NAME])
 
 def gv
+def branchName = env.BRANCH_NAME
 pipeline {
     agent any
      tools {
