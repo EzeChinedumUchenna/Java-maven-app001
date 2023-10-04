@@ -56,7 +56,8 @@ pipeline {
             steps {
                 script {
                     echo "pushing to ACR in "
-                    deployImage "nedumacr.azurecr.io/demo-app:jma-${BUILD_NUMBER}"
+                    //deployImage "nedumacr.azurecr.io/demo-app:jma-${BUILD_NUMBER}"
+                    deployImage(imageName: "nedumacr.azurecr.io/demo-app:jma-${BUILD_NUMBER}", branchName: env.BRANCH_NAME)
                 
                 }
             }
