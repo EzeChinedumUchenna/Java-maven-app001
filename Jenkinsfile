@@ -35,7 +35,7 @@ pipeline {
                 }
             }
         }
-        stage("deploying to ACR") {
+        stage("deploying to ACR..") {
            when {
                expression {
                    BRANCH_NAME == 'main'
