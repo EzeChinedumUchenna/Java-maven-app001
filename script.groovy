@@ -7,7 +7,7 @@ def buildJar() {
 
 def buildImage() {
     echo "building the docker image..."
-    sh "docker build -t nedumacr.azurecr.io/demo-app:jma-${BUILD_NUMBER} ."
+    sh "docker build -t nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME ."
 
     }
 
