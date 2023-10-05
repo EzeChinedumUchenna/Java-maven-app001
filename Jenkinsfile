@@ -2,10 +2,10 @@
 
 // @Library('jenkins-shared-lib') //"NOTE: if there is nothing before pipeline use @Library('jenkins-shared-lib')_" // Also note that this is for global scoped...
 
-library identifier: 'jenkins-shared-lib@main', retriever: modernSCM([$class: 'GitSCMSource', remote: 'https://github.com/EzeChinedumUchenna/Jenkins_Shared_Lib.git', credentialId: 'My-Github-cred', branchName: env.BRANCH_NAME])
+library identifier: 'jenkins-shared-lib@main', retriever: modernSCM([$class: 'GitSCMSource', remote: 'https://github.com/EzeChinedumUchenna/Jenkins_Shared_Lib.git', credentialId: 'My-Github-cred'])
 
 def gv
-def branchName = env.BRANCH_NAME
+
 pipeline {
     agent any
      tools {
@@ -41,11 +41,11 @@ pipeline {
             }
         }
         stage("deploying to ACR") {
-            // when {
-            //     expression {
-            //         BRANCH_NAME == 'main'
-            //     }
-            // }
+            when {
+                expression {
+                    BRANCH_NAME == 'main'
+                }
+            }
             input {
                 message "selete the environment"
                 ok "Done"
@@ -56,8 +56,6 @@ pipeline {
             steps {
                 script {
                     echo "pushing to ACR in "
-                    // deployImage "nedumacr.azurecr.io/demo-app:jma-${BUILD_NUMBER}, branchName"
-                    //deployImage(imageName: "nedumacr.azurecr.io/demo-app:jma-${BUILD_NUMBER}", branchName: env.BRANCH_NAME)
                     deployImage("nedumacr.azurecr.io/demo-app:jma-${BUILD_NUMBER}", env.BRANCH_NAME)
                 
                 }
