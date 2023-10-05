@@ -41,11 +41,11 @@ pipeline {
             }
         }
         stage("deploying to ACR") {
-            // when {
-            //     expression {
-            //         BRANCH_NAME == 'main'
-            //     }
-            // }
+            when {
+                expression {
+                    BRANCH_NAME == 'main'
+                }
+            }
             input {
                 message "selete the environment"
                 ok "Done"
