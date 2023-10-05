@@ -35,8 +35,9 @@ pipeline {
             steps {
                 script {
                     echo 'incrementing app version ...'
-                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} version:commit'
-            
+                    //sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} version:commit'
+                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.nextIncrementalVersion} -DgenerateBackupPoms=false'
+
                         // we need to retrieve the version number of the app from the pom.xml file and use it as our image tag instead of using the BUILD_NUMBER. To do this we need to read the pom.xml file..
                     def mavenPom = readMavenPom 'pom.xml'
                     // def version = reader[0][1]  //this will read the first version in the pom.xml file and the 1 column. Assuming that [0][0]=<version>, [0][1]=1.0.0 and [0][2]=</version>
