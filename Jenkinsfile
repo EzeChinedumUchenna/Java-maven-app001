@@ -38,11 +38,11 @@ pipeline {
                     sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.majorVersion}.\\${parsedVersion.minorVersion}.\\${parsedVersion.nextIncrementalVersion} version:commit'
             
                         // we need to retrieve the version number of the app from the pom.xml file and use it as our image tag instead of using the BUILD_NUMBER. To do this we need to read the pom.xml file..
-                    def reader = readFile('pom.xml') =~ '<version>(.+)</version>'
-                    def version = reader[0][1]  //this will read the first version in the pom.xml file and the 1 column. Assuming that [0][0]=<version>, [0][1]=1.0.0 and [0][2]=</version>
+                    def mavenPom = readMavenPom 'pom.xml'
+                    // def version = reader[0][1]  //this will read the first version in the pom.xml file and the 1 column. Assuming that [0][0]=<version>, [0][1]=1.0.0 and [0][2]=</version>
                     // add this pluggin "Pipeline Utility StepsVersion"
                     
-                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
+                    env.IMAGE_NAME = "${mavenPom.version}-$BUILD_NUMBER"
                 }
             }
         }
