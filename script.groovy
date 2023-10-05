@@ -2,7 +2,7 @@
 
 def buildJar() {
     echo "building the application..."
-    sh 'mvn clean package'
+    sh 'mvn clean package' //clean cleans up the target folder when ever a new packge id triggered to prevent mutiple packages in the folder
 } 
 
 def buildImage() {
