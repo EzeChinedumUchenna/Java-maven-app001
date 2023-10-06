@@ -2,13 +2,13 @@
 
 // @Library('jenkins-shared-lib') //"NOTE: if there is nothing before pipeline use @Library('jenkins-shared-lib')_" // Also note that this is for global scoped..
 
-library identifier: 'jenkins-shared-lib@main', retriever: modernSCM([$class: 'GitSCMSource', remote: 'https://github.com/EzeChinedumUchenna/Jenkins_Shared_Lib.git', credentialId: 'My-Github-cred'])
+library identifier: 'jenkins-shared-lib@main', retriever: modernSCM([$class: 'GitSCMSource', remote: 'https://github.com/EzeChinedumUchenna/Jenkins_Shared_Lib.git', credentialId: 'My-Github-cred']) // This is for project scope
 
 def gv
 
 pipeline {
     agent any
-     tools {
+    tools {
         maven 'maven-3.9' 
     }
     parameters {
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     echo 'incrementing app version ...'
-                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion.\\\${parsedVersion.nextIncrementalVersion} versions:commit'
+                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion.\\\${parsedVersion.nextIncrementalVersion} versions:commit' // This will increment the 
                     
                     // we need to retrieve the version number of the app from the pom.xml file and use it as our image tag instead of using the BUILD_NUMBER. To do this we need to read the pom.xml file..
                     def reader = readFile('pom.xml') =~ '<version>(.+)</version>'
@@ -86,8 +86,8 @@ pipeline {
             }
             steps {
                 script {
-                    echo "pushing to ACR in "
-                    deployImage("nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME ", env.BRANCH_NAME)
+                    echo "pushing to ACR........."
+                    deployImage("nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME", env.BRANCH_NAME)
                 
                 }
             }
