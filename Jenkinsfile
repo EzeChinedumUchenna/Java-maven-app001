@@ -111,12 +111,12 @@ pipeline {
                         sh 'git config --list'
 
                     // Because my Github Password contain special character @, I will need to encode it else it wont work with Jenkins.
-                        def encodedPassword = URLEncoder.encode(${PASS}, "UTF-8")
-                        
-                        // Here will are setting the Origin value to https://github.com/EzeChinedumUchenna/Java-maven-app001.git before the git push origin cmd
+                        def encodedPassword = URLEncoder.encode(PASS, "UTF-8")
+
+                        // Set the Git remote URL with the encoded password
                         sh "git remote set-url origin https://${USER}:${encodedPassword}@github.com/EzeChinedumUchenna/Java-maven-app001.git"
                         sh 'git add .'
-                        sh 'git commit -m "ci:version increase"' 
+                        sh 'git commit -m "ci:version increase"'
                         sh 'git push origin HEAD:jenkins-jobs'
                 }
             }
