@@ -91,6 +91,33 @@ pipeline {
                 
                 }
             }
-        } 
+        }
+        // Note: That even after we have incremented the version number in the code and push to ACR, it is not commited to the git hub pom.xml and thus when 
+        // programmer push another code to the git hub, the job triggers the same version increase. Therefore we need to commit the new increment to Github
+        stage ('commit version update......') {
+            steps {
+                script {
+                    // We need access to github
+                    withCredentials([usernamePassword(credentialsId: 'My-Github-cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    // First we are going to attach a metadata to our commit. Like email and username, else Jenkins will complain. This is very important and a must-have at first commit but can be remove aftr that.
+                        sh 'git config user.email "nedum_jenkins@gmail.com"' 
+                        sh 'git config user.name "jenkins"'
+                    // Note can set the above globally for all the project by adding '--global'
+                    // sh 'git config --global user.email "nedum_jenkins@gmail.com"' 
+                    // sh 'git config --global user.name "nedum_jenkins"' 
+                    // we want git to print out the following information
+                        sh 'git status'
+                        sh 'git branch'
+                        sh 'git config --list'
+
+                    //
+                        
+                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/EzeChinedumUchenna/Java-maven-app001.git" //here will are setting the Origin value to https://github.com/EzeChinedumUchenna/Java-maven-app001.git before the git push origin cmd
+                        sh 'git add .'
+                        sh 'git commit -m "ci:version increase"' 
+                        sh 'git push origin HEAD:jenkins-jobs'
+                }
+            }
+        }
     } 
 }
