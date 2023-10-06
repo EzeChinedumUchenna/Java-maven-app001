@@ -112,7 +112,8 @@ pipeline {
 
                     //
                         
-                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/EzeChinedumUchenna/Java-maven-app001.git" //here will are setting the Origin value to https://github.com/EzeChinedumUchenna/Java-maven-app001.git before the git push origin cmd
+                        // Here will are setting the Origin value to https://github.com/EzeChinedumUchenna/Java-maven-app001.git before the git push origin cmd
+                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/EzeChinedumUchenna/Java-maven-app001.git"
                         sh 'git add .'
                         sh 'git commit -m "ci:version increase"' 
                         sh 'git push origin HEAD:jenkins-jobs'
