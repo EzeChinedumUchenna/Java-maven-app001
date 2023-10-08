@@ -116,7 +116,7 @@ pipeline {
                         // Set the Git remote URL with the encoded password
                         sh "git remote set-url origin https://${USER}:${encodedPassword}@github.com/EzeChinedumUchenna/Java-maven-app001.git"
                         sh 'git add .'
-                        sh 'git commit -m "ci:version increase"
+                        sh 'git commit -m "ci:version increase"'
                         sh 'git push origin HEAD:refs/heads/main' //here I want to push to main branch. Selete any branch you want to push to Eg sh 'git push origin HEAD:refs/heads/bug-fix'
                 }
                     // Note: After you have implemeted the above, Jenkins will ended up commiting the version change into the Github repo but remember we have a webhook configured between Jenkins
