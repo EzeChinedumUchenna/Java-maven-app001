@@ -140,10 +140,9 @@ pipeline {
                         //sh 'az acr login --name NedumACR -u $USER --password-stdin' // Make sure you open port 22 on the Production Server NSG and NOTE on this line we will use (') and not (") not even when there is a String value
                    // }
                     sshagent(['Production_Server_SSH-KEY']) {
-                        def dockerCmd = "docker run -p 8081:8080 -d nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME" // Make sure you have docker and az CLI installed on both the Production Server and Jenkins server and that Java-maven port uns on port 8080
-                        //sh 'ssh -o StrictHostKeyChecking=no chinedumeze@20.26.114.46 ${dockerCmd}' // "-o StrictHostKeyChecking=no" - this flag is used to override any pop up that comes when you SSH into a server. Note that this is not an interactive mode 
-                        sh 'ssh -o StrictHostKeyChecking=no chinedumeze@20.26.114.46'
-                        sh "docker run -p 8081:8080 -d nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME"
+                        def dockerCmd = "docker run -p 8080:8080 -d nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME" // Make sure you have docker and az CLI installed on both the Production Server and Jenkins server and that Java-maven port uns on port 8080
+                        sh "ssh -o StrictHostKeyChecking=no chinedumeze@20.26.114.46 ${dockerCmd}" // -o StrictHostKeyChecking=no" - this flag is used to override any pop up that comes when you SSH into a server. Note that this is not an interactive mode 
+                        
                     } 
                 }
             }
