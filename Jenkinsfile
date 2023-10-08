@@ -87,7 +87,7 @@ pipeline {
             steps {
                 script {
                     echo "pushing to ACR........."
-                    deployImage("nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME", env.BRANCH_NAME)
+                    deployImage("nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME", env.BRANCH_NAME)  // Note this "deployImage" is linked to a Jenkins shared Lib....
                 
                 }
             }
