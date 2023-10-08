@@ -94,7 +94,7 @@ pipeline {
         }
         // Note: That even after we have incremented the version number in the code and push to ACR, it is not commited to the git hub pom.xml and thus when 
         // programmer push another code to the git hub, the job triggers the same version increase. Therefore we need to commit the new increment to Github
-        stage ('commit version update......') {
+        stage('commit version update......') {
             steps {
                 script {
                     // We need access to github
