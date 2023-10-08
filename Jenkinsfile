@@ -116,7 +116,7 @@ pipeline {
                         // Set the Git remote URL with the encoded password
                         sh "git remote set-url origin https://${USER}:${encodedPassword}@github.com/EzeChinedumUchenna/Java-maven-app001.git"
                         sh 'git add .'
-                        sh 'git commit -m "ci:version increase"'
+                        sh 'git commit -m "ci:version increase"'ge 
                         sh 'git push origin HEAD:refs/heads/main' //here I want to push to main branch. Selete any branch you want to push to Eg sh 'git push origin HEAD:refs/heads/bug-fix'
                 }
                     // Note: After you have implemeted the above, Jenkins will ended up commiting the version change into the Github repo but remember we have a webhook configured between Jenkins
@@ -124,6 +124,23 @@ pipeline {
 
                     // To achieve the above we need to install a Jenkins plugin called IGNORE COMMITTER STRATEGY >> Go to the Pipeline Configuration >> Branch Sources >> under behaviour 
                     // look for BUILD STRTEGIES, click on it an add Jenkins email address or username. Eg nedum_jenkins@gmail.com
+            }
+        }
+        stage ("deploying to Production Server") {
+            // First you need to SSH into the server to run some cmd.
+            // To SSH into the server, you need a SSH Agent plugin installed in Jenkins
+            // Since Jenkins will connect to the Production server, we need to create a credential in Jenkin that will has the Production Server Username and the Server Key in .pem. Best Practice is to create the Credential from the pipeline page (pipelne scope); the SSH credential will only be used by the pipeline.
+            // From the pipeline blade, click on the pipeline syntax, And look for SSH agent to know how to use SSH plugin. 
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'azure_acr_cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                       sh "docker login -u ${USER} -p ${PASS}" // Make sure you open port 22 on the Production Server NSG
+                    }
+                    sshagent(['Production_Server_SSH-KEY']) {
+                        def dockerCmd = "docker run -p 8080:8080 nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME" // Make sure you have docker installed in the Server and that Java-maven port uns on port 8080
+                        sh 'ssh -o StrictHostKeyChecking=no chinedumeze@20.26.114.46 ${dockerCmd}' // "-o StrictHostKeyChecking=no" - this flag is used to override any pop up that comes when you SSH into a server. Note that this is not an interactive mode 
+                    } 
+                }
             }
         }
     } 
