@@ -122,7 +122,7 @@ pipeline {
                     // Note: After you have implemeted the above, Jenkins will ended up commiting the version change into the Github repo but remember we have a webhook configured between Jenkins
                     // and the Github, thus whenever Jenkins commit changes to Github another build will be trigered thus causing an endless loop. 
 
-                    // To achieve the above we need to install a Jenkins plugin called IGNORE COMMITTER STRATEGY >> Go to the Pipeline Configuration >> Branch Sources >> under behaviour 
+                    // To achieve the above we need to install a Jenkins plugin called IGNORE COMMITTER STRATEGY >>> Go to the Pipeline Configuration >> Branch Sources >> under behaviour 
                     // look for BUILD STRTEGIES, click on it an add Jenkins email address or username. Eg nedum_jenkins@gmail.com
             }
         }
