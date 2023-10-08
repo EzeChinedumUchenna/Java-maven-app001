@@ -135,7 +135,9 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'azure_acr_cred', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'docker login -u $USER --password-stdin' // Make sure you open port 22 on the Production Server NSG and NOTE on this line we will use (') and not (") not even when there is a String value
+                        // First go to the Server and install Azure CLI sudo apt install azure-cli and login to Azure platform using your username and password
+                        // Open a terminal on your server and run the following command to log in to your Azure account. It is best to do that on he server first or use
+                        sh 'az acr login --name NedumACR -u $USER --password-stdin' // Make sure you open port 22 on the Production Server NSG and NOTE on this line we will use (') and not (") not even when there is a String value
                     }
                     sshagent(['Production_Server_SSH-KEY']) {
                         def dockerCmd = "docker run -p 8080:8080 nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME" // Make sure you have docker installed in the Server and that Java-maven port uns on port 8080
