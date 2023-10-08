@@ -126,6 +126,7 @@ pipeline {
                     // look for BUILD STRTEGIES, click on it an add Jenkins email address or username. Eg nedum_jenkins@gmail.com
             }
         }
+        }
         stage ("deploying to Production Server") {
             // First you need to SSH into the server to run some cmd.
             // To SSH into the server, you need a SSH Agent plugin installed in Jenkins
