@@ -81,7 +81,7 @@ pipeline {
             }
             when {
                 expression {
-                    BRANCH_NAME == 'main' || ENV =="prod" 
+                    BRANCH_NAME == 'main' && ENV =="prod" 
                 }
             }
             
