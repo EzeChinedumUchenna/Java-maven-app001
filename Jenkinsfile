@@ -26,9 +26,9 @@ pipeline {
                             message: "Select Incremental part",
                             ok: "Apply",
                             parameters: [
-                                choice(name: 'major', defaultValue: '', choices: ['', 'next'], description: ''),
-                                choice(name: 'minor', defaultValue: '', choices: ['', 'next'], description: ''),
-                                choice(name: 'parsed', defaultValue: '', choices: ['', 'next'], description: ''),
+                                choice(name: 'major', choices: ['', 'next'], description: ''),
+                                choice(name: 'minor', choices: ['', 'next'], description: ''),
+                                choice(name: 'parsed', choices: ['', 'next'], description: ''),
                             ]
                         )
                     // sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.${major}majorVersion}.\\\${parsedVersion.${minor}minorVersion}.\\\${parsedVersion.${parsed}IncrementalVersion} versions:commit' // This will increment the 
