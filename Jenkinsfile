@@ -31,8 +31,8 @@ pipeline {
                                 choice(name: 'parsed', choices: ['', 'next'], description: ''),
                             ]
                         )
-                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit' // This will increment the 
-                    //sh "mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.${userInput.major}majorVersion}.\\${parsedVersion.${userInput.minor}minorVersion}.\\${parsedVersion.${userInput.parsed}IncrementalVersion} versions:commit"
+                    // sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit' // This will increment the 
+                    sh "mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.${params.major}majorVersion}.\\${parsedVersion.${params.minor}minorVersion}.\\${parsedVersion.${params.parsed}IncrementalVersion} versions:commit"
                     // we need to retrieve the version number of the app from the pom.xml file and use it as our image tag instead of using the BUILD_NUMBER. To do this we need to read the pom.xml file..
                     def reader = readFile('pom.xml') =~ '<version>(.+)</version>'
                     def version = reader[0][1]  //this will read the first version in the pom.xml file and the 1 column. Asuming that [0][0]=<version>, [0][1]=1.0.0 and [0][2]=</version>
