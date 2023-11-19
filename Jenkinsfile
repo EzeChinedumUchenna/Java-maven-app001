@@ -72,11 +72,6 @@ pipeline {
             }
         }
         stage("deploying to ACR") {
-            when {
-                expression {
-                    BRANCH_NAME == 'main'
-                }
-            }
             input {
                 message "selete the environment"
                 ok "Done"
@@ -84,6 +79,12 @@ pipeline {
                     choice (name: 'ENV', choices: ['dev', 'stage', 'prod'], description: '')
                 }
             }
+            when {
+                expression {
+                    BRANCH_NAME == 'main' || ENV =="prod" 
+                }
+            }
+            
             steps {
                 script {
                     echo "pushing to ACR........."
