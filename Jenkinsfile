@@ -50,7 +50,7 @@ pipeline {
                 }
             }
         }
-        }
+        
 
         // stage("incrementing app version.....") {
         //     steps {
@@ -170,4 +170,5 @@ pipeline {
             }
         }
     } 
+}
 }
