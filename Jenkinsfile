@@ -18,16 +18,6 @@ pipeline {
     }    
     stages {
         stage("incrementing app version.....") {
-            // input {
-            //     message "selete Incremental part"
-            //     ok "Apply"
-            //     parameters {
-            //         choice (name: 'major', defaultValue: '', choices: [' ', 'next'], description: '')
-            //         choice (name: 'minor', defaultValue: '', choices: [' ', 'next'], description: '')
-            //         choice (name: 'parsed', defaultValue: '', choices: [' ', 'next'], description: '')
-                    
-            //     }
-            // }
             steps {
                 script {
                     echo 'incrementing app version ...'
