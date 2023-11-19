@@ -25,11 +25,11 @@ pipeline {
                         def userInput = input(
                             message: "Select Incremental part",
                             ok: "Apply",
-                            parameters: [
-                                choice(name: 'major', choices: ['', 'next'], description: ''),
-                                choice(name: 'minor', choices: ['', 'next'], description: ''),
-                                choice(name: 'parsed', choices: ['', 'next'], description: ''),
-                            ]
+                           parameters: [
+                            [$class: 'ChoiceParameterDefinition', name: 'major', choices: ['', 'next'], description: ''],
+                            [$class: 'ChoiceParameterDefinition', name: 'minor', choices: ['', 'next'], description: ''],
+                            [$class: 'ChoiceParameterDefinition', name: 'parsed', choices: ['', 'next'], description: ''],
+                        ]
                         )
                     // sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit' // This will increment the 
                     sh "mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.${params.major}majorVersion}.\\${parsedVersion.${params.minor}minorVersion}.\\${parsedVersion.${params.parsed}IncrementalVersion} versions:commit"
