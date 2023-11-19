@@ -18,10 +18,20 @@ pipeline {
     }    
     stages {
         stage("incrementing app version.....") {
+            input {
+                message "selete Incremental part"
+                ok "Apply"
+                parameters {
+                    choice (name: 'major', defaultValue: '', choices: [' ', 'next'], description: '')
+                    choice (name: 'minor', defaultValue: '', choices: [' ', 'next'], description: '')
+                    choice (name: 'parsed', defaultValue: '', choices: [' ', 'next'], description: '')
+                    
+                }
+            }
             steps {
                 script {
                     echo 'incrementing app version ...'
-                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit' // This will increment the 
+                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.${major}majorVersion}.\\\${parsedVersion.${minor}minorVersion}.\\\${parsedVersion.${parsed}IncrementalVersion} versions:commit' // This will increment the 
                     
                     // we need to retrieve the version number of the app from the pom.xml file and use it as our image tag instead of using the BUILD_NUMBER. To do this we need to read the pom.xml file..
                     def reader = readFile('pom.xml') =~ '<version>(.+)</version>'
@@ -74,14 +84,14 @@ pipeline {
         stage("deploying to ACR") {
             input {
                 message "selete the environment"
-                ok "Done"
+                ok "Apply"
                 parameters {
-                    choice (name: 'ENV', choices: ['dev', 'stage', 'prod'], description: '')
+                    choice (name: 'Env', choices: ['dev', 'stage', 'prod'], description: '')
                 }
             }
             when {
                 expression {
-                    BRANCH_NAME == 'main' && ENV =="prod" 
+                    BRANCH_NAME == 'main' && Env =="prod" 
                 }
             }
             
