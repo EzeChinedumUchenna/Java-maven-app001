@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     echo 'incrementing app version ...'
-                    script {
+                    def parsed = sh(script: 'mvn build-helper:parse-version help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
                         def userInput = input(
                             message: "Select Incremental part",
                             ok: "Apply",
@@ -40,7 +40,7 @@ pipeline {
                 }
             }
         }
-        }
+        
         
 
         // stage("incrementing app version.....") {
