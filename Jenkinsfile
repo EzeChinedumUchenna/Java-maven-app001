@@ -26,9 +26,9 @@ pipeline {
                             message: "Select Incremental part",
                             ok: "Apply",
                            parameters: [
-                            string (name: 'major', defaultValue: '', description: 'Major'),
-                            string (name: 'minor', defaultValue: '', description: 'Minor'),
-                            string (name: 'parsed', defaultValue: '', description: 'Parsed')
+                            [$class: 'ChoiceParameterDefinition', name: 'major', choices: ['', 'next'], description: ''],
+                            [$class: 'ChoiceParameterDefinition', name: 'minor', choices: ['', 'next'], description: ''],
+                            [$class: 'ChoiceParameterDefinition', name: 'parsed', choices: ['', 'next'], description: ''],
                         ]
                         )
                     // sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit' // This will increment the verion on the pom.xml file
