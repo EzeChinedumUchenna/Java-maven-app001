@@ -21,28 +21,11 @@ pipeline {
             steps {
                 script {
                     echo 'incrementing app version ...'
-                    def parsed = sh(script: 'mvn build-helper:parse-version help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
-                        def userInput = input(
-                            message: "Select Incremental part",
-                            ok: "Apply",
-                           parameters: [
-                            [$class: 'ChoiceParameterDefinition', name: 'major', choices: ['', 'next'], description: ''],
-                            [$class: 'ChoiceParameterDefinition', name: 'minor', choices: ['', 'next'], description: ''],
-                            [$class: 'ChoiceParameterDefinition', name: 'parsed', choices: ['', 'next'], description: ''],
-                        ]
-                        )
-                    // sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit' // This will increment the verion on the pom.xml file
-                    //sh "mvn build-helper:parse-version versions:set -DnewVersion=\\${parsedVersion.${userInput.params.major}majorVersion}.\\${parsedVersion.${userInput.params.minor}minorVersion}.\\${parsedVersion.${userInput.params.parsed}IncrementalVersion} versions:commit"
-                    // we need to retrieve the version number of the app from the pom.xml file and use it as our image tag instead of using the BUILD_NUMBER. To do this we need to read the pom.xml file..
-                    //def reader = readFile('pom.xml') =~ '<version>(.+)</version>'
-                    //def version = reader[0][1]  //this will read the first version in the pom.xml file and the 1 column. Asuming that [0][0]=<version>, [0][1]=1.0.0 and [0][2]=</version>
-                    //env.IMAGE_NAME = "$version-$BUILD_NUMBER"
-                    sh "mvn build-helper:parse-version versions:set -DnewVersion=${userInput.params.major}.${userInput.params.minor}.${userInput.params.parsed}"
-                    
-                    def updatedVersion = sh(script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true).trim()
-                    echo "Updated version: ${updatedVersion}"
-                    
-                    env.IMAGE_NAME = "${updatedVersion}-${BUILD_NUMBER}"
+                    sh 'mvn build-helper:parse-version versions:set -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} versions:commit' // This will increment the verion on the pom.xml file
+                    // we need to retrieve the new incremented version number of the app from the pom.xml file and use it as our image tag instead of using the BUILD_NUMBER. To do this we need to read the pom.xml file..
+                    def reader = readFile('pom.xml') =~ '<version>(.+)</version>'
+                    def version = reader[0][1]  //this will read the first version in the pom.xml file and the 1 column. Asuming that [0][0]=<version>, [0][1]=1.0.0 and [0][2]=</version>
+                    env.IMAGE_NAME = "$version-$BUILD_NUMBER"
                 }
             }
         }        
