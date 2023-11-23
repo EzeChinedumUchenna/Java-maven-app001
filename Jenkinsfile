@@ -143,6 +143,7 @@ pipeline {
                    // }
                     sshagent(['Production_Server_SSH-KEY']) {
                         def dockerCmd = "docker run -p 8080:8080 -d nedumacr.azurecr.io/demo-app:jma-$IMAGE_NAME" // Make sure you have docker and az CLI installed on both the Production Server and Jenkins server and that Java-maven port uns on port 8080
+                        // Make sure you have SSH Agent Plugin Installed......
                         sh "ssh -o StrictHostKeyChecking=no chinedumeze@20.26.114.46 ${dockerCmd}" // -o StrictHostKeyChecking=no" - this flag is used to override any pop up that comes when you SSH into a server. Note that this is not an interactive mode 
                         
                     } 
