@@ -68,6 +68,7 @@ $ cd .ssh
     sudo vim /etc/sysctl.conf
     //Paste the below values at the bottom of the file
     vm.max_map_count = 262144
+    sudo init 6
 
 #### Sonarqube Installation ####
 ## Download and Extract
