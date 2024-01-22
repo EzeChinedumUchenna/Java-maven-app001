@@ -52,7 +52,7 @@ $ cd .ssh
     $ wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /etc/apt/keyrings/adoptium.asc
     $ echo "deb [signed-by=/etc/apt/keyrings/adoptium.asc] https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list
  ## Install Java 17
-    $ apt update
+    $ apt update # Or use this if you get error - sudo apt-get update --allow-insecure-repositories 
     $ apt install temurin-17-jdk
     $ update-alternatives --config java
     $ /usr/bin/java --version
