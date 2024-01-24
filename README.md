@@ -1,6 +1,6 @@
 Video Link -- https://youtu.be/e42hIYkvxoQ
 ============================================================= Install and Configure the Jenkins-Master & Jenkins-Agent =============================================================
-## Install Java
+## Install Java.
 $ sudo apt update
 $ sudo apt upgrade
 $ sudo nano /etc/hostname
